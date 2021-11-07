@@ -7,7 +7,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 
 
-private const val BASE_URL = "https://dog.cee/api/"
+private const val BASE_URL = "https://dog.ceo/api/"
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
@@ -23,10 +23,10 @@ interface DogImageApiService{
 
     //https://dog.ceo/api/breeds/image/random
     @GET("breeds/image/random")
-    suspend fun getRandomPhoto() : dogImage
+    suspend fun getRandomPhoto() : DogImage
 }
  object DogImageApi{
      val retrofitService: DogImageApiService by lazy {
-         retrofit.create ((DogImageApiService::class.java))
+         retrofit.create((DogImageApiService::class.java))
      }
  }

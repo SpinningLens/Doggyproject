@@ -7,8 +7,8 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
 class DogViewModel : ViewModel() {
-    private val _dogImage = MutableLiveData<dogImage>()
-    val dogImage: LiveData<dogImage> = _dogImage
+    private val _dogImage = MutableLiveData<DogImage>()
+    val dogImage: LiveData<DogImage> = _dogImage
 
     init {
         getNewPhoto()

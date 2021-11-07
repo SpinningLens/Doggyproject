@@ -15,11 +15,14 @@
         android:layout_marginTop="126dp"
         android:layout_marginEnd="101dp"
         android:layout_marginBottom="268dp"
+        android:backgroundTint="@color/black"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-       tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars"
+        android:focusable="true" />
 
     <Button
         android:id="@+id/imageDogButton"
