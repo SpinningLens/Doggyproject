@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".viewmodels.MainActivity">
 
 
     <ImageView
@@ -28,13 +28,13 @@
         android:id="@+id/imageDogButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="283dp"
-        android:layout_marginTop="632dp"
+        android:layout_marginStart="30dp"
         android:layout_marginEnd="34dp"
-        android:layout_marginBottom="51dp"
-        android:text="searchDoggy"
+        android:layout_marginBottom="104dp"
+        android:text="Previous"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/doggyphoto" />
 </androidx.constraintlayout.widget.ConstraintLayout>
