@@ -2,7 +2,6 @@ package com.example.doggy.repository
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.room.RoomDatabase
 import com.example.doggy.network.ApplicationManager
 import com.example.doggy.network.DogImage
 import com.example.doggy.network.DogImageApi
@@ -21,8 +20,7 @@ class ImageRepository {
     suspend fun getRandomDogImage(){
         try{
             val dog = DogImageApi.retrofitService.getRandomPhoto()
-            ApplicationManager.db.dogDao().insertAll(dog)
-
+            ApplicationManager.db.dogDao().getAll()
         }catch(e:Exception){
             Log.e("DogViewModel", "Error occurred: $ {e.mesage}")
         }

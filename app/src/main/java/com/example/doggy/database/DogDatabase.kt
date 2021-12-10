@@ -15,12 +15,12 @@ abstract class DogDatabase :RoomDatabase() {
         private var INSTANCE: DogDatabase? = null
 
         fun getInstance(context: Context): DogDatabase {
-            sychronized(this) {
+
                 var instance = INSTANCE
 
                 if (instance == null) {
                     instance = Room.databaseBuilder(
-                        context.applicationContext,
+                        context,//.applicationContext,
                         DogDatabase::class.java,
                         "dog_database"
                     )
@@ -30,7 +30,7 @@ abstract class DogDatabase :RoomDatabase() {
                     INSTANCE = instance
 
                 }
-                return@sychronized instance
+                return INSTANCE as DogDatabase
 
             }
 
@@ -38,7 +38,7 @@ abstract class DogDatabase :RoomDatabase() {
         }
 
     }
-}
+
 
 
 

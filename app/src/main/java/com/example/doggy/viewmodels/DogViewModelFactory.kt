@@ -2,16 +2,16 @@ package com.example.doggy.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.doggy.database.DogDao
+import com.example.doggy.network.DogApplication
 
 class DogViewModelFactory (
-    private val DogDao: DogDao
-): ViewModelProvider.Factory{
+   var application: DogApplication):ViewModelProvider.Factory{
+
     override fun<T: ViewModel> create (modelClass: Class <T>): T{
         if (modelClass.isAssignableFrom((DogViewModel::class.java))){
 
-            @Suppress ("UNCHECKED CAST")
-            return DogViewModel(DogDao)as T
+            //@Suppress ("UNCHECKED CAST")
+            return DogViewModel(application)as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

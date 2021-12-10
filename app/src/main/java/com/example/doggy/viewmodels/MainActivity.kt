@@ -1,68 +1,65 @@
 package com.example.doggy.viewmodels
 
-import android.app.Application
-import android.content.Intent
 import android.os.Bundle
-import androidx.activity.viewModels
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.doggy.R
-import com.example.doggy.databinding.ActivityMainBinding
+import com.example.doggy.network.DogApplication
+import com.example.doggy.network.DogImage
+import com.example.doggy.repository.ImageRepository
+import org.jetbrains.anko.doAsync
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
-    private val viewModel: DogViewModel by viewModels{
-        DogViewModelFactory((application as Application).database.DogDao())
-    }
+
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var model: DogViewModel
+    private lateinit var imageButton: Button
+    private var Dog: String = ""
+    private lateinit var repository: ImageRepository
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_main)
-        //getRandomDogPhoto()
-    }
-      changePhotoButton.setOnclickListener{
-        val current ImgUrl =
-        viewModel.DogDao.value?.variablenThatFile
-        viewModel.getNewPhoto()
 
-        val newDogImade = currentImgUrl?.let { itl ->
-            DogImageEntity(imageUrl = it1)
+        repository = ImageRepository()
+
+          recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+          imageButton = findViewById<Button>(R.id.imageButton)
+
+
+        val modelFactory = DogViewModelFactory(application as DogApplication);
+
+        model = ViewModelProvider(this,modelFactory).get(DogViewModel::class.java)
+
+        val linearLayoutManger = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+
+        model.allDogs.observe(this, Observer { dogs ->
+            recyclerView.adapter = RecyclerViewAdapter(dogs)
+
+        })
+
+        findViewById<Button>(R.id.imageButton).setOnClickListener {
+            doAsync{
+                model.insert(DogImage(null, UUID.randomUUID().toString()))
+            }
         }
-        if (newDogImage != null) {
-            viewModel.addDog(newDogImage)
-        }
 
-     private fun getRandomDogPhoto() {
-        //val randomPhotoButton = binding.imageDogButton
-        //viewModel.dogImage.observe(
-            ////this,
-            //{
-                //val imgUri =
-                    //it.imageUrl!!.toUri().buildUpon().scheme("https").build()
-                //binding.doggyphoto.load(imgUri)
-
-            //},
-        //)
-         randomPhotoButton.setOnClickListener {
-            viewModel.getNewPhoto()
-             val intent = Intent( this, MainActivity2:: class.java)
-             startActivity(intent)
-
-        }
 
     }
-         changePhotoButton.setOnclickListener{
-                 val current ImgUrl =
-             viewModel.DogDao.value?.variablenThatFile
-             viewModel.getNewPhoto()
+}
 
-         val newDogImade = currentImgUrl?.let { itl ->
-            DogImageEntity(imageUrl = it1)
-        }
-        if (newDogImage != null) {
-            viewModel.addDog(newDogImage)
-        }
-    }
+
+
+
+
+
 
 
 

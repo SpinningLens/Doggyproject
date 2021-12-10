@@ -1,44 +1,29 @@
 package com.example.doggy.viewmodels
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.doggy.database.DogDao
+import com.example.doggy.database.DogDatabase
+import com.example.doggy.network.DogApplication
 import com.example.doggy.network.DogImage
-import com.example.doggy.network.DogImageApi
-import kotlinx.coroutines.launch
+import com.example.doggy.repository.ImageRepository
 
-class DogViewModel
-  : ViewModel() {
-    private val _dogImage = MutableLiveData<DogImage>()
-    val dogImage: LiveData<DogImage> = _dogImage
+class DogViewModel (var application: DogApplication): ViewModel() {
+    val repository: ImageRepository = ImageRepository()
+    internal val DogImage: LiveData<List<DogImage>> = repository.getDogs()
 
-    //private val_status = DogImage ("", "success").status
-    //val status = _status
+    private val db: DogDatabase = DogDatabase.getInstance(application)
+    internal val allDogs: LiveData<List<DogImage>> = db.dogDao().getAll()
 
-    init {
-        getNewPhoto()
+    fun insert(dogImage: DogImage) {
+        db.dogDao().getAll()
     }
-
-    fun getNewPhoto() {
-        viewModelScope.launch {
-            _dogImage.value = DogImageApi.retrofitService.getRandomPhoto()
-        }
-
-        fun addDog(DogImageEntity: DogImage) {
-            viewModelScope.launch {
-                DogDao.addDogImage(DogImageEntity)
-            }
-        }
-
-        fun getAllDogs(): MutableLiveData<List<DogImage>> {
-            return DogDao.getAllDogImages().asLiveData()
+}
 
 
-        }
-
-    }
 
 
-  }
+
+
+
+
+
